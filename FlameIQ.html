@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FlameIQ: Spacecraft Fire Safety Intelligence</title><meta name="generator" content="Page code generated with SI assistance (Claude, Anthropic); data transcribed from public NASA reports"><meta name="description" content="Interactive dashboard that summarizes, ranks and interprets NASA microgravity fire experiments for human space exploration.">
+<style>
+:root{--bg:#f4f5fa;--card:#fff;--tx:#12162a;--mu:#586082;--ac:#e8590c;--ac2:#2f5bea;--bd:#dde1ee;--ok:#2b8a3e;--wn:#c47600;--hero:linear-gradient(135deg,#0d1230,#26124a 60%,#5a1d1d);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0e1d;--card:#151a30;--tx:#eceffa;--mu:#9aa3c7;--ac:#ff8a4c;--ac2:#8aa8ff;--bd:#272d4d;--ok:#6fd488;--wn:#ffc15a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0e1d;--card:#151a30;--tx:#eceffa;--mu:#9aa3c7;--ac:#ff8a4c;--ac2:#8aa8ff;--bd:#272d4d;--ok:#6fd488;--wn:#ffc15a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+.hero{background:var(--hero);color:#fff;padding:34px 18px 26px}.in{max-width:1120px;margin:auto}
+.hero h1{margin:0;font-size:clamp(26px,5vw,40px);letter-spacing:-.02em}.hero h1 span{color:#ff9a5c}.hero p{max-width:680px;color:#c9cfee;margin:8px 0 18px}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.kp div{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 12px}.kp b{display:block;font-size:24px}.kp small{color:#b6bde6}
+main{max-width:1120px;margin:auto;padding:16px 18px 40px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.05)}.wide{grid-column:1/-1}
+h2{font-size:13px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.07em;color:var(--mu)}h2 em{font-style:normal;color:var(--ac)}
+.ch{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.ch button,.chip{font:inherit;font-size:13px;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:99px;padding:6px 12px;cursor:pointer;transition:.15s}
+.ch button:hover,.chip:hover{border-color:var(--ac)}.ch button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+label{display:flex;justify-content:space-between;font-size:13px;margin-top:9px}input[type=range]{width:100%;accent-color:var(--ac)}
+input[type=text]{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;flex:1;min-width:200px}
+.go{font:inherit;border:0;border-radius:10px;padding:9px 16px;background:var(--ac2);color:var(--bg);font-weight:600;cursor:pointer}
+.sc{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--bd);vertical-align:top}th{color:var(--mu);font-weight:600}
+tr.r{cursor:pointer}tr.r:hover{background:var(--bg)}tr.d td{background:var(--bg);color:var(--mu)}
+.bar{height:8px;border-radius:4px;background:var(--bd);overflow:hidden;min-width:70px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac))}
+.tag{font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--bd);color:var(--mu);white-space:nowrap}
+.gap{font-size:14px;padding:11px 13px;border-radius:10px;border:1px solid var(--bd);margin-top:12px}.gap.bad{border-color:var(--wn)}.gap.good{border-color:var(--ok)}
+.fd{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.fd div{border-left:3px solid var(--ac);padding:2px 0 2px 12px;font-size:14px}.fd b{display:block}
+#ans{white-space:pre-wrap;font-size:14px;margin-top:12px;background:var(--bg);border-radius:10px;padding:12px;min-height:50px}.row{display:flex;gap:8px;flex-wrap:wrap}
+svg text{fill:var(--mu);font-size:11px}small,.mu{color:var(--mu)}a{color:var(--ac2)}footer{max-width:1120px;margin:auto;padding:0 18px 36px;font-size:12px;color:var(--mu)}
+body{background:radial-gradient(1100px 480px at 85% -8%,rgba(232,89,12,.09),transparent),var(--bg)}
+.hero{position:relative;overflow:hidden;background:radial-gradient(2px 2px at 20% 30%,#fff8,transparent),radial-gradient(1.5px 1.5px at 68% 22%,#fff9,transparent),radial-gradient(1.5px 1.5px at 86% 72%,#fff7,transparent),radial-gradient(2px 2px at 42% 82%,#fff6,transparent),radial-gradient(620px 320px at 92% 0,rgba(255,120,40,.38),transparent),var(--hero);padding-bottom:30px}
+.nv{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}.nv a{color:#e4e8ff;text-decoration:none;font-size:13px;padding:5px 13px;border:1px solid rgba(255,255,255,.22);border-radius:99px}.nv a:hover{background:rgba(255,255,255,.15)}
+.card{animation:up .5s both}@keyframes up{from{opacity:0;transform:translateY(10px)}}@media (prefers-reduced-motion:reduce){.card{animation:none}}
+.card h2{display:flex;align-items:center;gap:8px}.card h2:before{content:"";width:4px;height:14px;border-radius:2px;background:var(--ac);flex:none}
+.fg{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}.fc h3{font-size:14px;margin:0 0 8px}.fc small{display:block;margin-top:6px;font-size:12px}
+.br{display:grid;grid-template-columns:minmax(120px,1.3fr) 2fr auto;gap:8px;align-items:center;font-size:12.5px;margin:7px 0}.br b{min-width:74px;text-align:right}
+.sb{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.sb h3{font-size:14px;margin:12px 0 4px}.sb h3:first-child{margin-top:0}.sb p,.sb li{font-size:13.5px;margin:4px 0}.sb ul{padding-left:18px;margin:6px 0}
+.ck{list-style:none;padding:0!important}.ck li{display:flex;gap:8px}.ck i{font-style:normal;width:20px;flex:none;font-weight:700}.ok{color:var(--ok)}.td{color:var(--wn)}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 11px;border-radius:99px;background:rgba(255,154,92,.18);color:#ffb98a;border:1px solid rgba(255,154,92,.4);margin-bottom:12px}
+
+:root{--hero:linear-gradient(135deg,#070b22,#1f1048 55%,#6b1f12)}
+.hero{padding:46px 18px 36px}.hero h1{font-size:clamp(34px,6vw,56px);font-weight:800;letter-spacing:-.035em}.hero p{font-size:17px;max-width:720px}
+.kp div{backdrop-filter:blur(6px);border-top:2px solid #ff8a4c}.kp b{font-size:28px}
+main{gap:18px;padding-top:22px}.card{border-radius:16px;padding:20px;box-shadow:0 6px 24px rgba(10,16,40,.08);transition:box-shadow .2s}.card:hover{box-shadow:0 10px 34px rgba(10,16,40,.14)}
+h2{font-size:12.5px;letter-spacing:.1em}th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+.ch button.on{box-shadow:0 2px 10px rgba(232,89,12,.45)}.go{background:linear-gradient(135deg,var(--ac2),var(--ac));color:#fff}
+.lab{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.cv{position:relative;height:360px;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#18234f,#04060e);border:1px solid var(--bd)}
+.cv canvas{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+.hud{position:absolute;left:12px;right:12px;bottom:10px;color:#dfe4ff;font-size:12.5px;line-height:1.45;text-shadow:0 1px 3px #000;pointer-events:none}.hud b{color:#ffb98a}
+.tl{position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#aab4e6;pointer-events:none}
+#ans:empty{display:none}
+</style></head><body>
+<div class="hero"><div class="in"><div class="badge">NASA Space Apps Challenge 2026 · Fire safety in space</div><h1>Flame<span>IQ</span></h1>
+<p>Spacecraft fire safety intelligence. Explore NASA’s microgravity flame experiments, rank the evidence for your cabin, and see it in 3D on the Moon, Mars and in orbit.</p>
+<nav class="nv"><a href="#lab">3D lab</a><a href="#fig">Figures</a><a href="#map">Coverage map</a><a href="#rank">Ranking</a><a href="#ask">Ask SI</a></nav><div class="kp"><div><b id="k1"></b><small>catalogued records</small></div><div><b id="k2"></b><small>O₂ range tested</small></div><div><b id="k3"></b><small>pressure range</small></div><div><b id="k4"></b><small>partial-g records</small></div></div></div></div>
+<main>
+<section class="card"><h2><em>1</em> Mission scenario</h2><div class="ch" id="pre"></div>
+<label>Oxygen <b id="vo"></b></label><input type="range" id="o2" min="15" max="40" step=".5" value="21">
+<label>Pressure <b id="vp"></b></label><input type="range" id="ps" min="40" max="105" step=".5" value="101.3">
+<label>Gravity <b id="vg"></b></label><input type="range" id="g" min="0" max="1" step=".005" value="0">
+<div id="gap" class="gap"></div></section>
+<section class="card"><h2><em>2</em> Ranking weights</h2>
+<label>Scenario relevance <b id="vw1"></b></label><input type="range" id="w1" min="0" max="10" value="6">
+<label>Hazard (flame size / spread) <b id="vw2"></b></label><input type="range" id="w2" min="0" max="10" value="3">
+<label>Evidence quality <b id="vw3"></b></label><input type="range" id="w3" min="0" max="10" value="2">
+</section>
+<section class="card wide" id="lab"><h2>3D mission lab</h2>
+<div class="lab"><div class="cv"><canvas id="c1"></canvas><div class="tl">Destination · drag to rotate</div><div class="hud" id="h1"></div></div>
+<div class="cv"><canvas id="c2"></canvas><div class="tl">Flame behaviour · drag to rotate</div><div class="hud" id="h2"></div></div></div>
+<div class="row" style="margin-top:14px;align-items:flex-end"><div class="ch" id="bod" style="margin:0"><button data-g="0">Orbit</button><button data-g="0.165">Moon</button><button data-g="0.38">Mars</button><button data-g="1">Earth</button></div>
+<div style="flex:1;min-width:220px"><label>Cabin airflow <b id="vaf"></b></label><input type="range" id="af" min="0" max="40" step="1" value="20"></div></div>
+<div id="brief" class="gap"></div>
+</section>
+<section class="card wide" id="map"><h2>Coverage map: where has NASA actually tested?</h2><div id="chart"></div></section>
+<section class="card wide" id="fig"><h2>Figures from NASA data</h2><div class="fg"><div class="fc"><h3>Fig. 1 · Steady flame size by experiment</h3><div id="f1"></div></div><div class="fc"><h3>Fig. 2 · Measured flame spread rate</h3><div id="f2"></div></div><div class="fc"><h3>Fig. 3 · CO₂ released by one burn</h3><div id="f3"></div></div><div class="fc"><h3>Fig. 4 · Campaign oxygen trend</h3><div id="f4"></div></div></div></section>
+<section class="card wide sc" id="rank"><h2><em>3</em> Ranked experiments</h2><table><thead><tr><th>#</th><th>Experiment</th><th>Conditions</th><th>Reported results</th><th>Score</th><th>Evidence</th></tr></thead><tbody id="tb"></tbody></table></section>
+<section class="card wide" id="ask"><h2><em>4</em> Ask the data (SI)</h2>
+<div class="ch" id="chips"></div>
+<div class="row"><input type="text" id="q" placeholder="Ask about materials, oxygen, pressure, flow…"><button class="go" id="ask">Ask</button><button class="chip" id="int">Interpret my scenario</button></div>
+<div id="ans" class="mu"></div></section>
+</main>
+<footer>Page code generated with SI assistance (Claude).</footer>
+<script>
+const S={S1:"Ferkul et al. 2017",S2:"Urban et al. ICES-2021-266",S3:"Urban et al. ICES-2024-365",S4:"NTRS 20210017838",S5:"Olson & Miller 2009",S6:"ICES-2023-204"};
+const R=[
+["EX-01","Saffire-I concurrent","Cotton-fiberglass fabric, 94 × 40.6 cm","20 cm/s concurrent",21.7,null,20,1.8,4.0,"S1",3,"Steady spread on a large thin sample; slower than small-duct tests. Theoretical heat release 1.5 kW. Consumed about 1.5% of the vehicle’s oxygen."],
+["EX-02","Saffire-I opposed","Cotton-fiberglass fabric, remaining ~10%","20 cm/s opposed",21.7,null,20,1.3,2.4,"S1",3,"Theoretical heat release 1.1 kW. Concurrent spread was faster at this flow speed."],
+["EX-03","Saffire-II","Cotton-fiberglass fabric, 5 × 30 cm","20 cm/s concurrent",22.1,null,20,null,null,"S1",2,"Spread slightly faster than the wide Saffire-I sample, possibly from higher O₂ (22.1 vs 21.7%) or side entrainment. A second run used 25 cm/s."],
+["EX-04","Saffire-IV (IV-1)","Cotton-fiberglass fabric, 40 cm wide","20 cm/s concurrent",22.0,100,20,null,8.5,"S2",2,"Reduced duct height gave larger flames than Saffire I–III. Steady flame size taken from the table as extracted."],
+["EX-05","Saffire-V (V-2)","Cotton jersey (thinner fabric)","20 cm/s concurrent",26.2,70.7,20,null,10.0,"S2",2,"Larger flame from thinner material and higher O₂ at reduced pressure."],
+["EX-06","Saffire-V (V-3)","PMMA, one-sided","20 cm/s concurrent",25.4,71.3,20,null,11,"S2",2,"Flame grew to 11 cm after 450 s, similar to the limiting size of thin samples."],
+["EX-07","Saffire-V structured PMMA","PMMA 200 × 400 × 10 mm with 3 mm ribs","20 then 5 cm/s opposed",26.9,76.1,20,0.88,null,"S4",2,"Spread along rib edges up to 0.88 mm/s (1 mm rib); wider ribs were slower. Flow disturbances from an earlier test affected results. Verify the 0.88 value in source."],
+["EX-08","Saffire-VI (VI-2)","Thin cotton fabric, 50 cm","20 cm/s concurrent",31.0,54.1,20,null,null,"S3",1,"Closest catalogued match to exploration-style low pressure and high O₂. Test conditions only in the catalogued excerpt."],
+["EX-09","Saffire-VI (VI-3)","PMMA, two-sided","20 cm/s concurrent",30.3,54.6,20,null,null,"S3",1,"Fires across Saffire IV–VI were generally 1.5–3 kW. Oxygen-based heat release was measured."],
+["EX-10","ISS low-speed quenching","Cotton-fiberglass fabric","1–55 cm/s concurrent",21,null,3,null,null,"S5",2,"O₂ varied 16–21%. Quenching speeds were 1–5 cm/s, higher at lower O₂. Plotted at 21%."]
+].map(r=>({id:r[0],nm:r[1],mat:r[2],cfg:r[3],o2:r[4],kp:r[5],fl:r[6],sp:r[7],fs:r[8],src:r[9],q:r[10],n:r[11],g:0}));
+const $=i=>document.getElementById(i),ms=Math.max(...R.map(d=>d.sp||0)),mf=Math.max(...R.map(d=>d.fs||0)),open=new Set();
+const P=[["ISS-like cabin","21,101.3,0"],["Exploration cabin, Moon","26.5,70.3,0.165"],["Deep-space low pressure","34,56.5,0"],["Mars surface cabin","26.5,70.3,0.38"]];
+$("pre").innerHTML=P.map((p,i)=>`<button data-v="${p[1]}">${p[0]}</button>`).join("");
+$("k1").textContent=R.length;$("k2").textContent=Math.min(...R.map(d=>d.o2))+"–"+Math.max(...R.map(d=>d.o2))+"%";$("k3").textContent="54–101 kPa";$("k4").textContent="0";
+function sc(){const o=+$("o2").value,p=+$("ps").value,g=+$("g").value,w=[1,2,3].map(i=>+$("w"+i).value),T=w.reduce((a,b)=>a+b)||1;
+$("vo").textContent=o+"%";$("vp").textContent=p+" kPa ("+(p/6.895).toFixed(1)+" psi)";$("vg").textContent=g.toFixed(2)+" g";w.forEach((v,i)=>$("vw"+(i+1)).textContent=v);
+const rows=R.map(d=>{const dp=d.kp==null?0:Math.abs(d.kp-p)/40,n=d.kp==null?2:3,rel=Math.max(0,1-(Math.abs(d.o2-o)/8+dp+Math.abs(d.g-g)/0.4)*3/n/1.6);
+const hz=d.fs!=null?d.fs/mf:d.sp!=null?d.sp/ms:.4;return{...d,rel,s:(w[0]*rel+w[1]*hz+w[2]*d.q/3)/T}}).sort((a,b)=>b.s-a.s);return{o,p,g,rows}}
+function render(){const{o,p,g,rows}=sc();
+$("tb").innerHTML=rows.map((d,i)=>{const res=[d.sp!=null?`spread ${d.sp} mm/s`:"",d.fs!=null?`flame ${d.fs} cm`:""].filter(Boolean).join(" · ")||"<span class='mu'>see source</span>";
+return`<tr class="r" data-id="${d.id}"><td>${i+1}</td><td><b>${d.id}</b> ${d.nm}<br><span class="mu">${d.mat}</span></td><td>${d.o2}% O₂<br>${d.kp==null?"ambient (n/s)":d.kp+" kPa"} · µg<br><span class="mu">${d.cfg}</span></td><td>${res}</td><td><div class="bar"><i style="width:${Math.round(d.s*100)}%"></i></div>${Math.round(d.s*100)}</td><td><span class="tag">${["","conditions","partial","full"][d.q]}</span></td></tr>`+(open.has(d.id)?`<tr class="d"><td></td><td colspan="5">${d.n} <b>Source:</b> ${S[d.src]}.</td></tr>`:"")}).join("");
+const near=rows.filter(d=>d.rel>.7).length,gp=$("gap"),pg=g>0.02;
+gp.className="gap "+(near>=3&&!pg?"good":"bad");
+gp.innerHTML=pg?`<b>Partial-gravity gap:</b> every catalogued test is in microgravity. Results at ${g.toFixed(2)} g are extrapolation. ${near?near+" nearby record(s) match O₂ and pressure.":"No record matches O₂ and pressure either."}`:near>=3?`<b>Good coverage:</b> ${near} experiments closely match this scenario.`:near>0?`<b>Thin coverage:</b> only ${near} close match${near>1?"es":""}. Treat conclusions as low confidence and consider new tests.`:`<b>Data gap:</b> nothing catalogued is near ${o}% O₂ and ${p} kPa. This is a priority condition to test.`;
+const W=640,H=250,X=v=>46+(v-15)/22*(W-62),Y=v=>H-34-(v-50)/55*(H-52);let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Tested oxygen and pressure conditions"><line x1="46" y1="${H-34}" x2="${W-12}" y2="${H-34}" stroke="var(--bd)"/><line x1="46" y1="10" x2="46" y2="${H-34}" stroke="var(--bd)"/>`;
+[15,20,25,30,35].forEach(v=>s+=`<text x="${X(v)}" y="${H-18}" text-anchor="middle">${v}%</text>`);[50,70,90,105].forEach(v=>s+=`<text x="40" y="${Y(v)+4}" text-anchor="end">${v}</text>`);
+rows.forEach(d=>{const am=d.kp==null;s+=`<circle cx="${X(d.o2)}" cy="${Y(d.kp||101.3)}" r="${4+d.q*2.5}" fill="var(--ac)" fill-opacity="${am?.15:.3+d.rel*.6}" stroke="var(--ac)" ${am?'stroke-dasharray="3"':""}><title>${d.id} ${d.nm}: ${d.o2}% O2</title></circle>`});
+s+=`<text x="${X(o)}" y="${Y(p)+7}" text-anchor="middle" style="fill:var(--ac2);font-size:24px">★</text><text x="${W/2}" y="${H-2}" text-anchor="middle">Oxygen (%)</text><text x="6" y="14">Pressure (kPa)</text></svg>`;$("chart").innerHTML=s}
+document.addEventListener("click",e=>{const t=e.target.closest("tr.r");if(t){open.has(t.dataset.id)?open.delete(t.dataset.id):open.add(t.dataset.id);render()}
+const b=e.target.closest("#pre button");if(b){const[a,c,d]=b.dataset.v.split(",");$("o2").value=a;$("ps").value=c;$("g").value=d;document.querySelectorAll("#pre button").forEach(x=>x.classList.toggle("on",x===b));render()}});
+["o2","ps","g","w1","w2","w3"].forEach(i=>$(i).oninput=()=>{document.querySelectorAll("#pre button").forEach(x=>x.classList.remove("on"));render()});render();
+const QS=["How does oxygen level change flame size?","Is concurrent or opposed flow more dangerous?","What is missing for a Moon habitat?","Which materials burned in low-pressure tests?"];
+$("chips").innerHTML=QS.map(q=>`<button class="chip">${q}</button>`).join("");
+const f=v=>v==null?"not reported":v,ctx=()=>{const{o,p,g,rows}=sc();return`Scenario: ${o}% O2, ${p} kPa, ${g} g (all catalogued tests are microgravity).\nRecords:\n`+rows.map(d=>`${d.id} | ${d.nm} | ${d.mat} | ${d.cfg} | O2 ${d.o2}% | pressure ${d.kp==null?"ambient, not stated":d.kp+" kPa"} | spread ${f(d.sp)} mm/s | steady flame ${f(d.fs)} cm | evidence ${d.q}/3 | relevance ${d.rel.toFixed(2)} | ${d.n} | source ${S[d.src]}`).join("\n")};
+const SYS="You are a fire-safety analyst for crewed spacecraft. Use ONLY the records given. Cite experiment IDs like [EX-03] for every claim, quote numbers exactly, say “not reported” when a value is missing, flag thin evidence and partial-gravity gaps, and never extrapolate beyond the data without saying so. Max 160 words.";
+async function run(task){const a=$("ans");a.textContent="Thinking…";let sm=null;try{sm=await claude.use("sample")}catch(e){}
+if(sm){try{await sm(SYS+"\n\n"+ctx()+"\n\nTask: "+task,{modelTier:"default",cache:false,onText:({text})=>{a.textContent=text}});return}catch(e){}}
+const w=task.toLowerCase().split(/\W+/).filter(x=>x.length>3),h=R.map(d=>({d,n:w.filter(x=>(d.nm+d.mat+d.n).toLowerCase().includes(x)).length})).sort((x,y)=>y.n-x.n).slice(0,3).map(x=>x.d);
+a.textContent="SI is unavailable here. Closest records by keyword:\n"+h.map(d=>`[${d.id}] ${d.nm}, ${d.o2}% O₂: ${d.n}`).join("\n")}
+$("chips").onclick=e=>{if(e.target.matches(".chip")){$("q").value=e.target.textContent;run(e.target.textContent)}};
+$("ask").onclick=()=>$("q").value.trim()&&run($("q").value);$("q").onkeydown=e=>e.key==="Enter"&&$("ask").click();
+$("int").onclick=()=>run("Interpret what these records imply for fire safety in this scenario: the main risk, the most relevant experiments, and the biggest evidence gap.");
+function bars(id,it,u){const m=Math.max(...it.map(x=>x[1]));$(id).innerHTML=it.map(x=>`<div class="br"><span>${x[0]}</span><div class="bar"><i style="width:${x[1]/m*100}%"></i></div><b>${x[1]} ${u}</b></div>`).join("")}
+bars("f1",R.filter(d=>d.fs!=null).sort((a,b)=>a.o2-b.o2).map(d=>[d.id+" · "+d.o2+"% O₂",d.fs]),"cm");
+bars("f2",[["EX-01 concurrent",1.8],["EX-02 opposed",1.3],["EX-07 PMMA rib edge",0.88]],"mm/s");
+bars("f3",[["Saffire-IV fabric",0.036],["Saffire-V cotton",0.054]],"kg");
+bars("f4",[["Saffire-I",21.7],["Saffire-II",22.1],["Saffire-IV",22.0],["Saffire-V",26.2],["Saffire-VI",31.0],["Planned target",34]],"% O₂");
+</script>
+<script>
+(function(){
+const $=i=>document.getElementById(i),dpr=Math.min(2,devicePixelRatio||1),W=512,H=256;
+function fit(cv){const w=cv.clientWidth||300,h=cv.clientHeight||300;if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}const x=cv.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);return{x,w,h}}
+function drag(cv,st){let d=0,lx=0,ly=0;cv.onpointerdown=e=>{d=st.drag=1;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId)};cv.onpointerup=()=>{d=st.drag=0};cv.onpointermove=e=>{if(d){st.ry+=(e.clientX-lx)*.01;st.rx=Math.max(-1.3,Math.min(1.3,st.rx+(e.clientY-ly)*.01));lx=e.clientX;ly=e.clientY}}}
+function tex(base,bl,n,cr,cap){const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle=base;x.fillRect(0,0,W,H);
+for(let i=0;i<n;i++){const px=Math.random()*W,py=Math.random()*H,r=6+Math.random()*34,g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,bl[i%bl.length]);g.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=g;x.fillRect(px-r,py-r,2*r,2*r)}
+for(let i=0;i<cr;i++){const px=Math.random()*W,py=Math.random()*H,r=1.5+Math.random()*Math.random()*12;x.beginPath();x.arc(px,py,r,0,6.283);x.fillStyle="rgba(0,0,0,.25)";x.fill();x.lineWidth=1;x.strokeStyle="rgba(255,255,255,.3)";x.stroke()}
+if(cap){const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"rgba(255,255,255,.9)");g.addColorStop(.08,"rgba(255,255,255,0)");g.addColorStop(.92,"rgba(255,255,255,0)");g.addColorStop(1,"rgba(255,255,255,.9)");x.fillStyle=g;x.fillRect(0,0,W,H)}
+return x.getImageData(0,0,W,H).data}
+const B={moon:{n:"Moon",g:"1.62 m/s²",a:"no atmosphere, near vacuum",h:null,t:tex("#8c8c92",["rgba(55,55,62,.55)","rgba(190,190,196,.35)"],90,160)},
+mars:{n:"Mars",g:"3.71 m/s²",a:"thin CO₂ air, about 0.6 kPa",h:[255,154,92],t:tex("#a9532e",["rgba(110,45,22,.55)","rgba(215,150,100,.4)"],90,60,1)},
+earth:{n:"Earth",g:"9.81 m/s²",a:"air at 101.3 kPa",h:[74,163,255],t:tex("#1d4e9c",["rgba(46,140,78,.9)","rgba(236,240,244,.5)","rgba(30,95,170,.7)"],110,0)}};
+const D=190,R=D/2,NX=new Float32Array(D*D),NY=new Float32Array(D*D),NZ=new Float32Array(D*D),SH=new Float32Array(D*D),RM=new Float32Array(D*D),OK=new Uint8Array(D*D);
+for(let y=0;y<D;y++)for(let x=0;x<D;x++){const i=y*D+x,nx=(x+.5-R)/R,ny=-(y+.5-R)/R,d=nx*nx+ny*ny;if(d<=1){const nz=Math.sqrt(1-d);OK[i]=1;NX[i]=nx;NY[i]=ny;NZ[i]=nz;SH[i]=.16+.95*Math.max(0,nx*.55+ny*.35+nz*.76);RM[i]=Math.pow(1-nz,3)}}
+const ob=document.createElement("canvas");ob.width=ob.height=D;const ox=ob.getContext("2d"),img=ox.createImageData(D,D);
+const stars=Array.from({length:110},()=>[Math.random(),Math.random(),Math.random()*1.4+.3]);
+const GS={ry:0,rx:.35,drag:0},FS={ry:.45,rx:.2,drag:0};drag($("c1"),GS);drag($("c2"),FS);
+let cur="earth";const la=.45,lo=.5;
+function globe(t,dt){const{x,w,h}=fit($("c1"));x.clearRect(0,0,w,h);x.fillStyle="#fff";stars.forEach(s=>{x.globalAlpha=.4+.5*s[2]/1.7;x.fillRect(s[0]*w,s[1]*h,s[2],s[2])});x.globalAlpha=1;
+if(!GS.drag)GS.ry+=dt*.15;const b=B[cur],cx=w/2,cy=h/2-8,Rs=Math.min(w,h)*.36,cw=Math.cos(GS.ry),sw=Math.sin(GS.ry),ct=Math.cos(GS.rx),st=Math.sin(GS.rx),tx=b.t,d=img.data;
+if(b.h){const g=x.createRadialGradient(cx,cy,Rs*.95,cx,cy,Rs*1.25);g.addColorStop(0,`rgba(${b.h},.55)`);g.addColorStop(1,`rgba(${b.h},0)`);x.fillStyle=g;x.fillRect(0,0,w,h)}
+for(let i=0;i<D*D;i++){const o=i*4;if(!OK[i]){d[o+3]=0;continue}
+const y1=NY[i]*ct+NZ[i]*st,z1=-NY[i]*st+NZ[i]*ct,x2=NX[i]*cw-z1*sw,z2=NX[i]*sw+z1*cw,lon=Math.atan2(x2,z2),lat=Math.asin(y1>1?1:y1<-1?-1:y1),u=((lon/6.2832+.5)*W)|0,v=((.5-lat/3.1416)*H)|0,k=(Math.min(H-1,v)*W+Math.min(W-1,u))*4,sh=SH[i],rm=b.h?RM[i]*.9:0;
+d[o]=tx[k]*sh+(b.h?b.h[0]:0)*rm;d[o+1]=tx[k+1]*sh+(b.h?b.h[1]:0)*rm;d[o+2]=tx[k+2]*sh+(b.h?b.h[2]:0)*rm;d[o+3]=255}
+ox.putImageData(img,0,0);x.imageSmoothingEnabled=true;x.drawImage(ob,cx-Rs,cy-Rs,2*Rs,2*Rs);
+const bx=Math.cos(la)*Math.sin(lo),by=Math.sin(la),bz=Math.cos(la)*Math.cos(lo),x1=bx*cw+bz*sw,zz=-bx*sw+bz*cw,y2=by*ct-zz*st,z3=by*st+zz*ct;
+if(z3>0){const px=cx+x1*Rs,py=cy-y2*Rs,p=(Math.sin(t*3)+1)/2;x.strokeStyle=`rgba(255,154,92,${1-p})`;x.lineWidth=2;x.beginPath();x.arc(px,py,5+p*11,0,6.283);x.stroke();x.fillStyle="#ff5a1f";x.beginPath();x.arc(px,py,4.5,0,6.283);x.fill()}}
+const N=650,P=new Float32Array(N*3),V=new Float32Array(N*3),AG=new Float32Array(N),LF=new Float32Array(N);
+function rs(i,S){const r=Math.cbrt(Math.random())*.3*S,a=Math.random()*6.283,b=Math.acos(2*Math.random()-1);P[3*i]=-.5+r*Math.sin(b)*Math.cos(a);P[3*i+1]=-.3+r*Math.cos(b)*.9;P[3*i+2]=r*Math.sin(b)*Math.sin(a)*.6;V[3*i]=V[3*i+1]=V[3*i+2]=0;AG[i]=0;LF[i]=1+Math.random()*1.4}
+for(let i=0;i<N;i++){rs(i,1);AG[i]=Math.random()*LF[i]}
+const CO=[[-2,-1.2,-.8],[2,-1.2,-.8],[2,1.2,-.8],[-2,1.2,-.8],[-2,-1.2,.8],[2,-1.2,.8],[2,1.2,.8],[-2,1.2,.8]],ED=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+function flame(dt){const{x,w,h}=fit($("c2"));x.clearRect(0,0,w,h);
+const gv=+$("g").value,o=+$("o2").value,af=+$("af").value,gn=Math.min(1,gv),cx=w/2,cy=h/2-10,f=Math.min(h,w)*1.2,cyw=Math.cos(FS.ry),syw=Math.sin(FS.ry),cxw=Math.cos(FS.rx),sxw=Math.sin(FS.rx);
+const pr=(X,Y,Z)=>{const x1=X*cyw+Z*syw,z1=-X*syw+Z*cyw,y1=Y*cxw-z1*sxw,z2=Y*sxw+z1*cxw+5.2,s=f/z2;return[cx+x1*s,cy-y1*s,s]};
+x.strokeStyle="rgba(130,150,215,.55)";x.lineWidth=1;ED.forEach(e=>{const a=pr(...CO[e[0]]),b=pr(...CO[e[1]]);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke()});
+const q=[[-1.3,-.8,0],[1.3,-.8,0],[1.3,.6,0],[-1.3,.6,0]].map(p=>pr(...p));x.fillStyle="rgba(150,132,96,.38)";x.beginPath();q.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.closePath();x.fill();
+function arrow(a,b,c){const p=pr(...a),r=pr(...b),dx=r[0]-p[0],dy=r[1]-p[1],l=Math.hypot(dx,dy)||1,ux=dx/l,uy=dy/l;x.strokeStyle=x.fillStyle=c;x.lineWidth=2;x.beginPath();x.moveTo(p[0],p[1]);x.lineTo(r[0],r[1]);x.stroke();x.beginPath();x.moveTo(r[0],r[1]);x.lineTo(r[0]-ux*9-uy*4,r[1]-uy*9+ux*4);x.lineTo(r[0]-ux*9+uy*4,r[1]-uy*9-ux*4);x.fill()}
+if(af>0)[-.6,.1,.8].forEach(y=>arrow([-1.95,y,.6],[-1.95+.25+af/40*.5,y,.6],"#5b8cff"));
+if(gn>.01)arrow([1.7,.9,0],[1.7,.9-(.3+.6*gn),0],"#ffb347");
+const S=Math.max(.4,Math.min(1.8,.85+(o-21)*.04))*(af<=5?.55:1),bu=2.4*Math.sqrt(gn),fx=af*.012,bf=1-Math.sqrt(gn);x.globalCompositeOperation="lighter";
+for(let i=0;i<N;i++){const k=3*i;AG[i]+=dt;if(AG[i]>LF[i])rs(i,S);
+V[k]+=(fx-V[k])*dt*1.5+(Math.random()-.5)*dt*.9;V[k+1]+=(bu-V[k+1])*dt*1.8+(Math.random()-.5)*dt*.9;V[k+2]+=(Math.random()-.5)*dt*.9;P[k]+=V[k]*dt;P[k+1]+=V[k+1]*dt;P[k+2]+=V[k+2]*dt;
+const a=AG[i]/LF[i],qq=bf*(1-a),r=((1-qq)+.4*qq)*(1-.5*a)*255,g=(.85*(1-qq)+.62*qq)*(1-.75*a)*255,b=(.45*(1-qq)+qq)*(1-.9*a)*255,p=pr(P[k],P[k+1],P[k+2]),rad=Math.max(1.5,.1*p[2]);
+x.fillStyle=`rgba(${r|0},${g|0},${b|0},.045)`;x.beginPath();x.arc(p[0],p[1],rad*2.4,0,6.283);x.fill();x.fillStyle=`rgba(${r|0},${g|0},${b|0},${.22*(1-a)})`;x.beginPath();x.arc(p[0],p[1],rad*.8,0,6.283);x.fill()}
+x.globalCompositeOperation="source-over"}
+function brief(){const{o,p,g,rows}=sc(),pp=o*p/100,near=rows.filter(d=>d.rel>.7).length,b=rows[0],cf=g>.02?"Low (no partial-gravity tests)":near>=3?"Moderate":near>0?"Low":"Very low",dv=Math.round((pp/21.2-1)*100);
+$("brief").innerHTML=`<b>Scenario briefing.</b> Gravity ${(g*9.81).toFixed(2)} m/s², cabin ${o}% O₂ at ${p} kPa. Oxygen partial pressure is <b>${pp.toFixed(1)} kPa</b>, ${dv>=0?"+":""}${dv}% versus sea-level air (21.2 kPa). Best-matching evidence: <b>${b.id}</b> (${b.nm}). Close matches: <b>${near}</b>. Confidence: <b>${cf}</b>.`}
+$("bod").onclick=e=>{const b=e.target.closest("button");if(!b)return;$("g").value=b.dataset.g;$("g").dispatchEvent(new Event("input"))};
+let last=performance.now(),fr=0,t1="",t2="";
+function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/1000);last=now;fr++;
+const gv=+$("g").value,o=+$("o2").value,p=+$("ps").value,af=+$("af").value,gn=Math.min(1,gv);$("vaf").textContent=af+" cm/s";
+cur=gv<.08?"earth":gv<.27?"moon":gv<.6?"mars":"earth";
+try{globe(now/1000,dt);flame(dt)}catch(e){}
+const x1=`<b>${gv<.08?"Low Earth orbit and transit (microgravity)":B[cur].n}</b> · reference gravity ${gv<.08?"≈0":B[cur].g}<br>Outside: ${gv<.08?"vacuum":B[cur].a}<br>Habitat cabin: ${o}% O₂ · ${p} kPa`;if(x1!==t1){$("h1").innerHTML=x1;t1=x1}
+document.querySelectorAll("#bod button").forEach(b=>b.classList.toggle("on",Math.abs(+b.dataset.g-gv)<.03));
+const x2=gn<.02?"Microgravity: the flame stays compact with a blue base and streams with the airflow, as seen in Saffire.":gn<.6?"Reduced gravity: weak buoyancy gives a shorter, rounder flame than on Earth. No partial-gravity tests are catalogued, so this is extrapolation.":"Earth gravity: buoyancy stretches the flame upward.";
+const x3=x2+(gn<.02&&af<=5?" Airflow is in the 1–5 cm/s range where flames quenched on the ISS.":"")+(o>25?" Oxygen-enriched air makes flames larger.":"");if(x3!==t2){$("h2").innerHTML=x3;t2=x3}
+if(fr%15===1)brief()}
+requestAnimationFrame(loop);
+})();
+</script></body></html>
